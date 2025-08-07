@@ -4,51 +4,51 @@ let numeroSecreto = 0;
 let listaNumeros = [];
 let numeroMaximo = 10;
 
-function asignarTexto(elemento, texto){
+function asignarTexto(elemento, texto) {
     let textoHTML = document.querySelector(elemento);
     textoHTML.innerHTML = texto;
     return;
 }
 
-function verificarIntento(){
+function verificarIntento() {
     let numeroDeUsuario = parseInt(document.getElementById('valorUsuario').value);
 
     console.log(numeroSecreto);
 
-    if (numeroDeUsuario === numeroSecreto){
+    if (numeroDeUsuario === numeroSecreto) {
         // el usuario acerto
         asignarTexto('p', `Felicidades, has acertado en ${intentos} ${(intentos === 1) ? "intento" : "intentos"}`);
         document.getElementById('reiniciar').removeAttribute('disabled');
         document.getElementById('otraVez').setAttribute('disabled', 'true');
-      } else { 
+    } else {
         //el usario no acerto
-        if (numeroDeUsuario > numeroSecreto){
+        if (numeroDeUsuario > numeroSecreto) {
             asignarTexto('p', 'El número es menor');
-         } else {
-            asignarTexto('p', 'El número es mayor');   
-            }
-            intentos++;
-            limpiarInput();
-            if (intentos > limiteDeIntentos){
-                asignarTexto('p', `Juego terminado, has agotado los ${limiteDeIntentos} intentos maximos que tenias.`);
-                document.getElementById('otraVez').setAttribute('disabled', 'true');
-                document.getElementById('reiniciar').removeAttribute('disabled');
-            } 
+        } else {
+            asignarTexto('p', 'El número es mayor');
         }
-        return;
+        intentos++;
+        limpiarInput();
+        if (intentos > limiteDeIntentos) {
+            asignarTexto('p', `Juego terminado, has agotado los ${limiteDeIntentos} intentos maximos que tenias.`);
+            document.getElementById('otraVez').setAttribute('disabled', 'true');
+            document.getElementById('reiniciar').removeAttribute('disabled');
+        }
+    }
+    return;
 }
 
-function limpiarInput(){
+function limpiarInput() {
     let inputValue = document.querySelector('#valorUsuario').value = '';
     return;
 }
 
-function condicionesIniciales(){
+function condicionesIniciales() {
     asignarTexto('h1', 'Adivina el número secreto');
     asignarTexto('p', `Escribe un número del 1 al ${numeroMaximo}`);
     numeroSecreto = numeroRandom();
     intentos = 1;
-    if (numeroSecreto === null){
+    if (numeroSecreto === null) {
         document.getElementById('otraVez').setAttribute('disabled', 'true');
         document.getElementById('reiniciar').removeAttribute('disabled');
     } else {
@@ -57,7 +57,7 @@ function condicionesIniciales(){
     }
 }
 
-function reiniciarJuego(){
+function reiniciarJuego() {
     //limpiar input box
     limpiarInput();
     //indicar intervalo de numeros
@@ -68,25 +68,29 @@ function reiniciarJuego(){
     return;
 }
 
-function numeroRandom(){
+function numeroRandom() {
     let numeroGenerado = Math.floor(Math.random() * numeroMaximo) + 1;
     console.log(numeroGenerado);
     console.log(listaNumeros);
     //si ya jugamos todos los numeros
-    if (listaNumeros.length == numeroMaximo){
-        asignarTexto('p','Ya jugaste todos los números posibles');
+    if (listaNumeros.length == numeroMaximo) {
+        asignarTexto('p', 'Ya jugaste todos los números posibles');
         listaNumeros = [];
         return null;
     } else {
         //numero generado incluido en la lista
-        if (listaNumeros.includes(numeroGenerado)){
+        if (listaNumeros.includes(numeroGenerado)) {
             return numeroRandom();
-        //numero generado no incluido en la lista
+            //numero generado no incluido en la lista
         } else {
             listaNumeros.push(numeroGenerado);
             return numeroGenerado;
         }
-    }    
+    }
 }
 
 condicionesIniciales();
+
+
+
+// testing commit and push, first project btw !!
